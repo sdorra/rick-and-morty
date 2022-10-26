@@ -13,8 +13,7 @@ type Props = PropsWithChildren & {
 
 const NavLink: FC<Props> = ({ href, className, children, exact = true }) => {
   const path = usePathname();
-  console.log(path)
-  const isActive = exact ? href === path : href.startsWith(path);
+  const isActive = exact ? href === path : path.startsWith(href);
   return (
     <Link
       className={clsx(className, {

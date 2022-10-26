@@ -33,7 +33,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
               <NavLink href="/">Home</NavLink>
             </li>
             <li>
-              <NavLink href="/characters">Characters</NavLink>
+              <NavLink href="/characters" exact={false}>Characters</NavLink>
             </li>
           </ul>
         </nav>
