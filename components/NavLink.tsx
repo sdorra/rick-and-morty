@@ -1,0 +1,30 @@
+"use client";
+
+import clsx from "clsx";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FC, PropsWithChildren } from "react";
+
+type Props = PropsWithChildren & {
+  href: string;
+  exact?: boolean;
+  className?: string;
+};
+
+const NavLink: FC<Props> = ({ href, className, children, exact = true }) => {
+  const path = usePathname();
+  console.log(path)
+  const isActive = exact ? href === path : href.startsWith(path);
+  return (
+    <Link
+      className={clsx(className, {
+        "text-stone-100 underline decoration-2 underline-offset-2 decoration-pink-600": isActive,
+      })}
+      href={href}
+    >
+      {children}
+    </Link>
+  );
+};
+
+export default NavLink;
