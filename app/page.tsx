@@ -4,7 +4,7 @@ const Home = () => (
       Rick and Morty
     </h1>
     <p className="text-xl font-body">NextJS 13 example app</p>
-    <div className="flex justify-center items-center mt-32 text-stone-600">
+    <div className="flex justify-center items-center mt-32 text-stone-700">
       <svg viewBox="0 0 50 50" fill="none" className="h-80 w-80 lg:h-96 lg:w-96">
         <defs>
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">

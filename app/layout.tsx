@@ -42,6 +42,11 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
                 Characters
               </NavLink>
             </li>
+            <li>
+              <NavLink href="/about">
+                About
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </header>
