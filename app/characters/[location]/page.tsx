@@ -1,3 +1,5 @@
+import fetchLocation from "@/lib/fetchLocation";
+import fetchLocations from "@/lib/fetchLocations";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faCross,
@@ -11,30 +13,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FC, ReactNode, use } from "react";
-import { getCharacter, getLocation } from "rickmortyapi";
 import { PageProps } from "types";
 
-const fetchCharacters = async (locationId: string) => {
-  const location = await getLocation(parseInt(locationId));
-  // residents has type character but contains an string array
-  const residents = location.data.residents as unknown as string[];
-  const ids = residents.map((url) => {
-    const parts = url.split("/").filter((p) => p.length > 0);
-    return parseInt(parts[parts.length - 1]);
-  });
-
-  const characters = await getCharacter(ids);
-  let data = characters.data;
-  if (!Array.isArray(data)) {
-    data = [data];
-  }
-  return {
-    characters: data,
-    location,
-  };
-};
-
-const statusIcon = (status: string) => {
+const statusIcon = (status: string | null) => {
   if (status === "Dead") {
     return faCross;
   } else if (status === "Alive") {
@@ -43,7 +24,7 @@ const statusIcon = (status: string) => {
   return faQuestion;
 };
 
-const genderIcon = (gender: string) => {
+const genderIcon = (gender: string | null) => {
   if (gender === "Female") {
     return faVenus;
   } else if (gender === "Male") {
@@ -64,7 +45,7 @@ const CharacterDetail = ({ icon, children }: CharacterDetailProps) => (
 );
 
 type CharactersProps = {
-  characters: Awaited<ReturnType<typeof fetchCharacters>>["characters"];
+  characters: Awaited<ReturnType<typeof fetchLocation>>["residents"];
 };
 
 const Characters = ({ characters }: CharactersProps) => (
@@ -75,7 +56,10 @@ const Characters = ({ characters }: CharactersProps) => (
         className="bg-stone-700 rounded-lg flex overflow-hidden min-w-[18rem]"
       >
         <Image
-          src={c.image}
+          src={
+            c.image ||
+            "https://rickandmortyapi.com/api/character/avatar/249.jpeg"
+          }
           alt={`Image of ${c.name}`}
           width={128}
           height={128}
@@ -92,12 +76,14 @@ const Characters = ({ characters }: CharactersProps) => (
             </CharacterDetail>
             <CharacterDetail icon={faOtter}>{c.species}</CharacterDetail>
           </ul>
-          <time
-            className="text-xs text-stone-400 text-right block mt-2"
-            dateTime={c.created}
-          >
-            {new Date(c.created).toISOString().split("T")[0]}
-          </time>
+          {c.created ? (
+            <time
+              className="text-xs text-stone-400 text-right block mt-2"
+              dateTime={c.created}
+            >
+              {new Date(c.created).toISOString().split("T")[0]}
+            </time>
+          ) : null}
         </div>
       </li>
     ))}
@@ -126,23 +112,31 @@ const NoCharacters = () => (
 const Location: FC<PageProps> = ({ params }) => {
   const locationId = params?.location;
   if (!locationId || Array.isArray(locationId)) {
-    notFound();
-    return null;
+    return notFound();
   }
-  const { characters, location } = use(fetchCharacters(locationId));
+  const location = use(fetchLocation(parseInt(locationId)));
   return (
     <>
-      <h1 className="text-4xl mb-2">{location.data.name}</h1>
+      <h1 className="text-4xl mb-2">{location.name}</h1>
       <p className="mb-5 text-stone-400">
         Characters which resident on{" "}
-        <strong className="text-stone-300">{location.data.name}</strong>
+        <strong className="text-stone-300">{location.name}</strong>
       </p>
-      {characters.length > 0 ? (
-        <Characters characters={characters} />
+      {location.residents.length > 0 ? (
+        <Characters characters={location.residents} />
       ) : (
         <NoCharacters />
       )}
     </>
+  );
+};
+
+export const generateStaticParams = async () => {
+  const locations = await fetchLocations();
+  return (
+    locations.map((location) => ({
+      location: String(location.id),
+    })) || []
   );
 };
 

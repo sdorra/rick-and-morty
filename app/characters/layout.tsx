@@ -1,23 +1,6 @@
 import NavLink from "@/components/NavLink";
+import fetchLocations from "@/lib/fetchLocations";
 import { FC, PropsWithChildren, use } from "react";
-import { getLocations } from "rickmortyapi";
-
-const fetchAllLocations = async () => {
-  const initial = await getLocations();
-  const locations = initial.data.results || [];
-
-  const pages = initial.data.info?.pages || 1;
-    for (let i=2; i<pages; i++) {
-      const moreLocations = await getLocations({page: i})
-      locations.push(...(moreLocations.data.results || []))
-    }
-    return locations;
-};
-
-const fetchLocations = async () => {
-  const response = await getLocations();
-  return response.data.results || [];
-};
 
 const NavigationEntries = () => {
   const locations = use(fetchLocations());
