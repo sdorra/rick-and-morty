@@ -71,7 +71,7 @@ const Characters = ({ characters }: CharactersProps) => (
 );
 
 const NoCharacters = () => (
-  <div className="flex h-full w-full flex-col items-center justify-center gap-5 text-stone-700">
+  <div className="flex flex-col justify-center mt-10 items-center gap-5 text-stone-700">
     {/* Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. */}
     <svg className="w-64" viewBox="0 0 512 512">
       <defs>

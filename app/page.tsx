@@ -1,10 +1,10 @@
 const Home = () => (
-  <>
+  <div className="flex flex-col h-full">
     <h1 className="to inline-block bg-purple-700 bg-gradient-to-r from-pink-400 bg-clip-text pb-2 font-display text-5xl font-extrabold text-transparent">
       Rick and Morty
     </h1>
     <p className="font-body text-xl">NextJS 13 example app</p>
-    <div className="mt-32 flex items-center justify-center text-stone-700">
+    <div className="flex flex-1 items-center justify-center text-stone-700">
       <svg viewBox="0 0 50 50" fill="none" className="h-80 w-80 lg:h-96 lg:w-96">
         <defs>
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -18,7 +18,7 @@ const Home = () => (
         />
       </svg>
     </div>
-  </>
+  </div>
 );
 
 export default Home;
