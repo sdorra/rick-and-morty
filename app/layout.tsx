@@ -21,7 +21,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
       <title>Rick and Morty</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="Rick and Morty NextJS 13 Example App" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.svg" />
     </head>
     <body
       className={clsx(
