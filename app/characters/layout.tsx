@@ -16,9 +16,9 @@ const NavigationEntries = () => {
 };
 
 const CharacterLayout: FC<PropsWithChildren> = ({ children }) => (
-  <div className="flex flex-col-reverse sm:flex-row gap-5">
+  <div className="flex flex-col-reverse gap-5 sm:flex-row">
     <aside>
-      <h3 className="text-stone-400 font-semibold">Locations</h3>
+      <h3 className="font-semibold text-stone-400">Locations</h3>
       <nav>
         <ul className="">
           <NavigationEntries />

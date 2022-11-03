@@ -1,14 +1,7 @@
 import fetchLocation from "@/lib/fetchLocation";
 import fetchLocations from "@/lib/fetchLocations";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {
-  faCross,
-  faMale,
-  faOtter,
-  faQuestion,
-  faStarOfLife,
-  faVenus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCross, faMale, faOtter, faQuestion, faStarOfLife, faVenus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -49,38 +42,25 @@ type CharactersProps = {
 };
 
 const Characters = ({ characters }: CharactersProps) => (
-  <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+  <ul className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
     {characters.map((c) => (
-      <li
-        key={c.id}
-        className="bg-stone-700 rounded-lg flex overflow-hidden min-w-[18rem]"
-      >
+      <li key={c.id} className="flex min-w-[18rem] overflow-hidden rounded-lg bg-stone-700">
         <Image
-          src={
-            c.image ||
-            "https://rickandmortyapi.com/api/character/avatar/249.jpeg"
-          }
+          src={c.image || "https://rickandmortyapi.com/api/character/avatar/249.jpeg"}
           alt={`Image of ${c.name}`}
           width={128}
           height={128}
           className="object-cover"
         />
-        <div className="p-2 flex flex-col flex-grow">
-          <h3 className="text-lg mb-2">{c.name}</h3>
-          <ul className="text-sm text-stone-300 ml-2 flex-grow">
-            <CharacterDetail icon={statusIcon(c.status)}>
-              {c.status}
-            </CharacterDetail>
-            <CharacterDetail icon={genderIcon(c.gender)}>
-              {c.gender}
-            </CharacterDetail>
+        <div className="flex flex-grow flex-col p-2">
+          <h3 className="mb-2 text-lg">{c.name}</h3>
+          <ul className="ml-2 flex-grow text-sm text-stone-300">
+            <CharacterDetail icon={statusIcon(c.status)}>{c.status}</CharacterDetail>
+            <CharacterDetail icon={genderIcon(c.gender)}>{c.gender}</CharacterDetail>
             <CharacterDetail icon={faOtter}>{c.species}</CharacterDetail>
           </ul>
           {c.created ? (
-            <time
-              className="text-xs text-stone-400 text-right block mt-2"
-              dateTime={c.created}
-            >
+            <time className="mt-2 block text-right text-xs text-stone-400" dateTime={c.created}>
               {new Date(c.created).toISOString().split("T")[0]}
             </time>
           ) : null}
@@ -91,7 +71,7 @@ const Characters = ({ characters }: CharactersProps) => (
 );
 
 const NoCharacters = () => (
-  <div className="text-stone-700 flex flex-col gap-5 justify-center items-center h-full w-full">
+  <div className="flex h-full w-full flex-col items-center justify-center gap-5 text-stone-700">
     {/* Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. */}
     <svg className="w-64" viewBox="0 0 512 512">
       <defs>
@@ -117,16 +97,11 @@ const Location: FC<PageProps> = ({ params }) => {
   const location = use(fetchLocation(parseInt(locationId)));
   return (
     <>
-      <h1 className="text-4xl mb-2">{location.name}</h1>
+      <h1 className="mb-2 text-4xl">{location.name}</h1>
       <p className="mb-5 text-stone-400">
-        Characters which resident on{" "}
-        <strong className="text-stone-300">{location.name}</strong>
+        Characters which resident on <strong className="text-stone-300">{location.name}</strong>
       </p>
-      {location.residents.length > 0 ? (
-        <Characters characters={location.residents} />
-      ) : (
-        <NoCharacters />
-      )}
+      {location.residents.length > 0 ? <Characters characters={location.residents} /> : <NoCharacters />}
     </>
   );
 };

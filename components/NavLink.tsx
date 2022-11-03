@@ -17,7 +17,7 @@ const NavLink: FC<Props> = ({ href, className, children, exact = true }) => {
   return (
     <Link
       className={clsx(className, {
-        "text-stone-100 underline decoration-2 underline-offset-2 decoration-pink-600": isActive,
+        "text-stone-100 underline decoration-pink-600 decoration-2 underline-offset-2": isActive,
       })}
       href={href}
     >

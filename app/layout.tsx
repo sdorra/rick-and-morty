@@ -1,10 +1,9 @@
-import { FC, PropsWithChildren } from "react";
-import { Raleway, Merriweather_Sans } from "@next/font/google";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import clsx from "clsx";
 import NavLink from "@/components/NavLink";
-
+import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { Merriweather_Sans, Raleway } from "@next/font/google";
+import clsx from "clsx";
+import { FC, PropsWithChildren } from "react";
 import "./global.css";
 
 config.autoAddCss = false;
@@ -26,14 +25,14 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     </head>
     <body
       className={clsx(
-        "h-full bg-stone-900 text-stone-200 p-10 flex flex-col gap-5 font-body",
+        "flex h-full flex-col gap-5 bg-stone-900 p-10 font-body text-stone-200",
         raleway.variable,
         merriweather.variable
       )}
     >
       <header>
         <nav>
-          <ul className="text-stone-400 flex gap-5">
+          <ul className="flex gap-5 text-stone-400">
             <li>
               <NavLink href="/">Home</NavLink>
             </li>
@@ -49,9 +48,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="text-stone-400 text-right pb-4">
-        © Sebastian Sdorra
-      </footer>
+      <footer className="pb-4 text-right text-stone-400">© Sebastian Sdorra</footer>
     </body>
   </html>
 );

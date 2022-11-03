@@ -1,7 +1,4 @@
-import {
-  LocationQuery,
-  LocationQueryVariables,
-} from "generated/graphql";
+import { LocationQuery, LocationQueryVariables } from "generated/graphql";
 import { gql } from "graphql-tag";
 import client from "./client";
 import { isDefined } from "./utils";
