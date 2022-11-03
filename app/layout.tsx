@@ -5,7 +5,7 @@ import clsx from "clsx";
 import NavLink from "@/components/NavLink";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import "tailwindcss/tailwind.css";
+import "./global.css";
 
 config.autoAddCss = false;
 
@@ -43,15 +43,15 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
               </NavLink>
             </li>
             <li>
-              <NavLink href="/about">
-                About
-              </NavLink>
+              <NavLink href="/about">About</NavLink>
             </li>
           </ul>
         </nav>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="text-stone-400 text-right pb-4">© Sebastian Sdorra</footer>
+      <footer className="text-stone-400 text-right pb-4">
+        © Sebastian Sdorra
+      </footer>
     </body>
   </html>
 );
