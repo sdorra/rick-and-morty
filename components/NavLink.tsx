@@ -11,9 +11,16 @@ type Props = PropsWithChildren & {
   className?: string;
 };
 
-const NavLink: FC<Props> = ({ href, className, children, exact = true }) => {
+const useIsActive = (href: string, exact: boolean) => {
   const path = usePathname();
-  const isActive = exact ? href === path : path.startsWith(href);
+  if (!path) {
+    return false;
+  }
+  return exact ? href === path : path.startsWith(href);
+};
+
+const NavLink: FC<Props> = ({ href, className, children, exact = true }) => {
+  const isActive = useIsActive(href, exact);
   return (
     <Link
       className={clsx(className, {
