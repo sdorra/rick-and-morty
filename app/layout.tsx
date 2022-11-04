@@ -1,3 +1,4 @@
+import Analytics from "@/components/Analytics";
 import NavLink from "@/components/NavLink";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -49,6 +50,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
       </header>
       <main className="flex-1">{children}</main>
       <footer className="pb-4 text-right text-stone-400">© Sebastian Sdorra</footer>
+      <Analytics />
     </body>
   </html>
 );
